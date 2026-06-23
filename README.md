@@ -1,32 +1,66 @@
-# React + TypeScript + Vite
+# AetherGallery
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+AetherGallery is a dynamic, data-agnostic portfolio browser that showcases projects or patents in an interlocking hexagonal honeycomb layout. It is built under a strict design system where all active user interface colors must satisfy the mathematical constraint $r \ge b$ and $g \ge b$, ensuring warm hues (yellows, reds, browns, oranges, and warm-toned greens).
 
-Currently, two official plugins are available:
+## System Nomenclature
+*   **UI**: Custom CSS and React components rendering the interactive honeycomb grid, collapsible control bar, theme selectors, and media detail modals.
+*   **Functional Core**: Text ingestion parsers, recursive GitHub directory scrapers, and color verification utilities.
+*   **Imperative Shell**: State bindings, window resize observers, and Vite bundle compilation targets.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Honeycomb Grid Math
+Pointy-topped hexagons are aligned in interlocking rows. To prevent tip-to-tip clashing:
+*   Adjacent columns are separated horizontally by the hexagon width plus gap ($W + G$).
+*   Subsequent rows overlap vertically by negative margins of $25\%$ of the height (positioning rows at exactly $0.75 \times H$ below the previous row).
+*   Odd rows (indices 1, 3, 5...) shift horizontally by exactly half a cell width using padding-left offsets (`calc((W + G) / 2)`).
+*   Grid width is dynamically scaled to match the active columns (`calc(cols * (W + G) - G)`), aligning all layers perfectly.
 
-## React Compiler
+## ETL Porting Pipelines
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+### Text Ingestion Parser
+Accepts uploaded text documents or raw pasted text following this schema:
+```text
+[PROJECT TITLE]
+Meta-Key-1: Value 1
+Meta-Key-2: Value 2
+"Multi-line project description
+enclosed in double quotes."
+./relative/path/to/local/image.png
+https://external-domain.com/demo/video.mp4
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+### GitHub API Scraper
+*   Fetches the public repository catalog for a given username or organization.
+*   Pulls `README.md` files to extract description blocks.
+*   Recurses the repository's file tree to locate image files in root directories or asset directories (`static`, `assets`, `images`), scoring them to extract logos or cover headers to use as thumbnail icons.
+
+## Integrated Warm Themes
+The header panel contains an icon-based selector containing 5 distinct color schemes. Every color inside these themes is validated:
+1.  **Amber Eclipse** (Sun Icon): Default dark amber charcoal theme.
+2.  **Beige Dunes** (FileText Icon): Light sand beige theme with sage highlights.
+3.  **Copper Canyon** (Mountain Icon): Rich copper rust theme.
+4.  **Jade & Steel** (Gem Icon): Dark steel metallic background with translucent jade glass card backdrops and soft jade glows on hover.
+5.  **Volcanic Ash** (Flame Icon): Deep ash black background with red lava and hot gold highlights.
+
+## Local Installation
+
+To install dependencies:
+```powershell
+npm install
+```
+
+To run the local development server:
+```powershell
+npm run dev
+```
+
+To build production bundles:
+```powershell
+npm run build
+```
+
+To configure remote repository targets:
+```powershell
+git remote add origin REPO_ADDRESS
+git branch -M main
+git push -u origin main
+```
