@@ -41,22 +41,6 @@ The header panel contains an icon-based selector containing 5 distinct color sch
 4.  **Jade & Steel** (Gem Icon): Dark steel metallic background with translucent jade glass card backdrops and soft jade glows on hover.
 5.  **Volcanic Ash** (Flame Icon): Deep ash black background with red lava and hot gold highlights.
 
-## Local Installation
-
-To install dependencies:
-```powershell
-npm install
-```
-
-To run the local development server:
-```powershell
-npm run dev
-```
-
-To build production bundles:
-```powershell
-npm run build
-```
 
 To configure remote repository targets:
 ```powershell
