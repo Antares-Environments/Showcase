@@ -83,7 +83,7 @@ export async function fetchGithubPortfolio(username: string, isOrg = false): Pro
           const treeData = await treeRes.json();
           if (treeData && Array.isArray(treeData.tree)) {
             const imageExtensions = /\.(png|jpg|jpeg|webp|gif|svg|avif)$/i;
-            const boilerplateRegex = /(^|\/)(vite|react|favicon|boilerplate|placeholder|temp|tmp|test|dummy)(\/|\.|_|-|$)/i;
+            const boilerplateRegex = /(^|\/)(vite|react|boilerplate|placeholder|temp|tmp|test|dummy)(\/|\.|_|-|$)/i;
             const imageFiles = treeData.tree.filter((file: any) => 
               file.type === 'blob' && imageExtensions.test(file.path) && !boilerplateRegex.test(file.path)
             );
